@@ -1,0 +1,33 @@
+<%@ Page Title="Title" Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" MasterPageFile="~/Views/Shared/Site.Master" %>
+
+<asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
+    Lebel
+</asp:Content>
+
+<asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
+    <div class="math-pic-pos1">
+        <a href="<%: Url.Action("Addition") %>" class="menu-image">
+            <img src="../../Images/Addition.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+
+    <div class="math-pic-pos2">
+        <a href="<%: Url.Action("Subtraction") %>" class="menu-image">
+            <img src="../../Images/subtractionsymbol.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+
+    <div class="math-pic-pos3">
+        <a href="<%: Url.Action("Multiplication") %>" class="menu-image">
+            <img src="../../Images/Multiplication.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+
+    <div class="math-pic-pos4">
+        <a href="<%: Url.Action("Division") %>" class="menu-image">
+            <img src="../../Images/DivisionImages.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+</asp:Content>
+<asp:Content runat="server" ID="ScriptsSection" ContentPlaceHolderID="ScriptsSection">
+</asp:Content>
