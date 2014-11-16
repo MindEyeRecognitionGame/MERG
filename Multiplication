@@ -1,0 +1,14 @@
+<%@ Page Title="Title" Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" MasterPageFile="~/Views/Shared/Site.Master" %>
+
+<asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
+    Nultiplication
+</asp:Content>
+
+<asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
+    
+    <h3>Multiplication</h3>
+</asp:Content>
+
+<asp:Content runat="server" ID="ScriptsSection" ContentPlaceHolderID="ScriptsSection">
+    
+</asp:Content>
