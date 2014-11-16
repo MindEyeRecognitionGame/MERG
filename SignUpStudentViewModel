@@ -1,0 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MEEGv._1.Models
+{
+    public class SignUpStudentViewModel
+    {
+        string Name { get; set; }
+        string Surname { get; set; }
+        string Grade { get; set; }
+        string Teacher { get; set; }
+    }
+}
