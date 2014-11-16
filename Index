@@ -1,0 +1,29 @@
+<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+
+<asp:Content ID="indexTitle" ContentPlaceHolderID="TitleContent" runat="server">
+    Home Page - My ASP.NET MVC Application
+</asp:Content>
+
+<asp:Content ID="indexFeatured" ContentPlaceHolderID="FeaturedContent" runat="server">
+    
+</asp:Content>
+
+<asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="main-pic-pos1">
+        <a href="<%: Url.Action("Sport") %>" class="menu-image">
+            <img src="../../Images/Sports.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+    
+    <div class="main-pic-pos2">
+        <a href="<%: Url.Action("Lebel") %>" class="menu-image">
+            <img src="../../Images/Animals.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+    
+    <div class="main-pic-pos3" >
+        <a href="<%: Url.Action("Maths") %>" class="menu-image">
+            <img src="../../Images/maths.jpg" width="100px" height="100px" />
+        </a>
+    </div>
+</asp:Content>
