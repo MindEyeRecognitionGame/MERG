@@ -1,0 +1,44 @@
+<%@ Page Title="Title" Language="C#" Inherits="System.Web.Mvc.ViewPage<MEEGv._1.Models.AdditionViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
+
+<asp:Content ID="indexTitle" ContentPlaceHolderID="TitleContent" runat="server">
+    Addition
+</asp:Content>
+
+<asp:Content ID="indexFeatured" ContentPlaceHolderID="FeaturedContent" runat="server">
+    
+</asp:Content>
+
+<asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
+<% using (Html.BeginForm()) { %>
+        <%: Html.AntiForgeryToken() %>
+        <%: Html.ValidationSummary(true) %>
+                <div class="math-num1">
+                    <%: Html.TextBoxFor(m => m.Number1, null, new {@readonly =  "readonly", @class = "textBoxAsLabel1"}) %>
+                </div>
+                <div class="math-sign">
+                    <%: Html.TextBoxFor(m => m.Sign, null, new {@readonly =  "readonly", @class = "textBoxAsLabel2"}) %>
+                </div>
+                <div class="math-num2">
+                    <%: Html.TextBoxFor(m => m.Number2, null, new {@readonly =  "readonly", @class = "textBoxAsLabel3"}) %>
+                </div>
+                <div class="math-equal-sign">
+                    <span>=</span>
+                </div>
+                <div class="math-answer">
+                    <%: Html.TextBoxFor(m => m.Answer, null, new { type="numeric", @class = "answer-text"}) %>
+                </div>
+                <div class="math-button">
+                    <input class="" type="submit" value="Next"/>
+                </div>
+                    <% if (!string.IsNullOrEmpty(Model.Message))
+                       {%>
+                            <p class="wrong-message">
+                                 <%: Model.Message %> 
+                            </p>
+                       <%}%>
+   
+    <% } %>
+</asp:Content>
+
+
+
