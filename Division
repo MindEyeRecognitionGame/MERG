@@ -1,11 +1,50 @@
-<%@ Page Title="Title" Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" MasterPageFile="~/Views/Shared/Site.Master" %>
+<%@ Page Title="Title" Language="C#" Inherits="System.Web.Mvc.ViewPage<MEEGv._1.Models.DivisionViewModel>" MasterPageFile="~/Views/Shared/Site.Master" %>
 
 <asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
     Division
 </asp:Content>
 
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
-    <h3>Division</h3>
+    <span >
+        <img src="../../Images/maths.jpg" class="banner"/>
+    </span>
+    <span class="title">
+        <%: ViewBag.Title %>
+    </span>
+   <hr class="hr"/>
+
+    <% using (Html.BeginForm()) { %>
+        <%: Html.AntiForgeryToken() %>
+        <%: Html.ValidationSummary(true) %>
+                <div class="math-num1">
+                    <%: Html.TextBoxFor(m => m.Number1, null, new {@readonly =  "readonly", @class = "textBoxAsLabel1"}) %>
+                </div>
+                <div class="math-sign">
+                    <%: Html.TextBoxFor(m => m.Sign, null, new {@readonly =  "readonly", @class = "textBoxAsLabel2"}) %>
+                </div>
+                <div class="math-num2">
+                    <%: Html.TextBoxFor(m => m.Number2, null, new {@readonly =  "readonly", @class = "textBoxAsLabel3"}) %>
+                </div>
+                <div class="math-equal-sign">
+                    <span>=</span>
+                </div>
+                <div class="math-answer">
+                    <%: Html.TextBoxFor(m => m.Answer, new { @class = "answer-text"}) %>
+                </div>
+                <div class="math-button">
+                    <input class="" type="submit" value="Next"/>
+                </div>
+                <div class="back">
+                  <%: Html.ActionLink("End Game", "Index", null, new {@class = "link"}) %>
+                </div>
+                    <% if (!string.IsNullOrEmpty(Model.Message))
+                       {%>
+                            <p class="wrong-message">
+                                 <%: Model.Message %> 
+                            </p>
+                       <%}%>
+   
+    <% } %>
 </asp:Content>
 
 <asp:Content runat="server" ID="ScriptsSection" ContentPlaceHolderID="ScriptsSection">
