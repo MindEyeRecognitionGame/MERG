@@ -9,21 +9,25 @@
 </asp:Content>
 
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
+    <span >
+        <img src="../../Images/MAIN%20MEEG%20PIC.jpg" class="banner"/>
+    </span>
+   <hr class="hr"/>
     <div class="main-pic-pos1">
         <a href="<%: Url.Action("Sport") %>" class="menu-image">
-            <img src="../../Images/Sports.jpg" width="100px" height="100px" />
+            <img src="../../Images/Sports.jpg" width="200px" height="200px" />
         </a>
     </div>
     
     <div class="main-pic-pos2">
         <a href="<%: Url.Action("Lebel") %>" class="menu-image">
-            <img src="../../Images/Animals.jpg" width="100px" height="100px" />
+            <img src="../../Images/Animals.jpg" width="200px" height="200px" />
         </a>
     </div>
     
     <div class="main-pic-pos3" >
         <a href="<%: Url.Action("Maths") %>" class="menu-image">
-            <img src="../../Images/maths.jpg" width="100px" height="100px" />
+            <img src="../../Images/mathsPage.jpg" width="200px" height="200px"/>
         </a>
     </div>
 </asp:Content>
