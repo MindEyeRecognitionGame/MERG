@@ -1,0 +1,1165 @@
+using System;
+using System.Web.Mvc;
+using MEEGv._1.Models;
+
+namespace MEEGv._1.Controllers
+{
+    public class HomeController : Controller
+    {
+        private int _count = 0;
+        private int _countPlay = 0;
+        private int _total = 0;
+
+        private string _wrongMessage = "Wrong answer, try again!"; 
+        private string _tempNum1 = string.Empty; 
+        private string _tempNum2 = string.Empty; 
+
+
+        public ActionResult Index()
+        {
+            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your app description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Maths()
+        {
+            ViewBag.Title = "Maths";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Addition()
+        {
+            ViewBag.Title = "Addition";
+            AdditionViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new AdditionViewModel
+                {
+                    Number1 = Session["Number1"].ToString(),
+                    Number2 = Session["Number2"].ToString(),
+                    Message = _wrongMessage,
+                    Sign = "+"
+                };
+
+                Session["Number1"] = 0;
+                Session["Number2"] = 0;
+
+                return View(viewModel);
+            }
+
+            viewModel = GetViewModel();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Addition(AdditionViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+            int sum = Convert.ToInt32(viewModel.Number1) + Convert.ToInt32(viewModel.Number2);
+
+            if (sum != Convert.ToInt32(viewModel.Answer))
+            {
+                if (_count < 2)
+                {
+                    Session["Count"] = _count;
+                    Session["Number1"] = viewModel.Number1;
+                    Session["Number2"] = viewModel.Number2;
+
+                    return RedirectToAction("Addition");
+                }
+                else
+                {
+                    _count = 0;
+                    Session["Count"] = 0;
+                    Session["Number1"] = 0;
+                    Session["Number2"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("Addition");
+                }
+                
+            }
+                _total += 1;
+                _count = 0;
+                Session["Count"] = 0;
+                Session["Number1"] = 0;
+                Session["Number2"] = 0;
+
+                if (_countPlay > 6)
+                {
+                    Session["CountPlay"] = 0;
+                    return RedirectToAction("Index");
+                }
+
+                Session["CountPlay"] = _countPlay;
+                return RedirectToAction("Addition");
+        }
+
+        [HttpGet]
+        public ActionResult Subtraction()
+        {
+            ViewBag.Title = "Subtraction";
+            SubtractionViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new SubtractionViewModel
+                {
+                    Number1 = Session["Number1"].ToString(),
+                    Number2 = Session["Number2"].ToString(),
+                    Message = _wrongMessage,
+                    Sign = "+"
+                };
+
+                Session["Number1"] = 0;
+                Session["Number2"] = 0;
+
+                return View(viewModel);
+            }
+
+            viewModel = GetSubtractioViewModel();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Subtraction(SubtractionViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+            int sum = Convert.ToInt32(viewModel.Number1) - Convert.ToInt32(viewModel.Number2);
+
+            if (sum != Convert.ToInt32(viewModel.Answer))
+            {
+                if (_count < 2)
+                {
+
+                    Session["Count"] = _count;
+                    Session["Number1"] = viewModel.Number1;
+                    Session["Number2"] = viewModel.Number2;
+
+                    return RedirectToAction("Subtraction");
+                }
+                else
+                {
+                    _count = 0;
+                    Session["Count"] = 0;
+                    Session["Number1"] = 0;
+                    Session["Number2"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+
+                    return RedirectToAction("Subtraction");
+                }
+
+            }
+            _total += 1;
+            _count = 0;
+            Session["Count"] = 0;
+            Session["Number1"] = 0;
+            Session["Number2"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+
+            return RedirectToAction("Subtraction");
+        }
+
+        [HttpGet]
+        public ActionResult Multiplication()
+        {
+            ViewBag.Title = "Multiplication";
+            MultiplicationViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new MultiplicationViewModel
+                {
+                    Number1 = Session["Number1"].ToString(),
+                    Number2 = Session["Number2"].ToString(),
+                    Message = _wrongMessage,
+                    Sign = "+"
+                };
+
+                Session["Number1"] = 0;
+                Session["Number2"] = 0;
+
+                return View(viewModel);
+            }
+
+            viewModel = GetMultipleViewModel();
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Multiplication(MultiplicationViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+            int sum = Convert.ToInt32(viewModel.Number1) * Convert.ToInt32(viewModel.Number2);
+
+            if (sum != Convert.ToInt32(viewModel.Answer))
+            {
+                if (_count < 2)
+                {
+
+                    Session["Count"] = _count;
+                    Session["Number1"] = viewModel.Number1;
+                    Session["Number2"] = viewModel.Number2;
+
+                    return RedirectToAction("Multiplication");
+                }
+                else
+                {
+                    _count = 0;
+                    Session["Count"] = 0;
+                    Session["Number1"] = 0;
+                    Session["Number2"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+
+                    return RedirectToAction("Multiplication");
+                }
+
+            }
+            _total += 1;
+            _count = 0;
+            Session["Count"] = 0;
+            Session["Number1"] = 0;
+            Session["Number2"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+
+            return RedirectToAction("Multiplication");
+        }
+
+        [HttpGet]
+        public ActionResult Division()
+        {
+            ViewBag.Title = "Division";
+            DivisionViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new DivisionViewModel
+                {
+                    Number1 = Session["Number1"].ToString(),
+                    Number2 = Session["Number2"].ToString(),
+                    Message = _wrongMessage,
+                    Sign = "/"
+                };
+
+                Session["Number1"] = 0;
+                Session["Number2"] = 0;
+
+                return View(viewModel);
+            }
+
+            viewModel = GetDivisionViewModel();
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Division(DivisionViewModel viewModel)
+        {
+            if (string.IsNullOrEmpty(viewModel.Answer))
+            {
+                viewModel.Message = "Enter answer, then click next button";
+
+                return View(viewModel);
+            }
+
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+            int sum = Convert.ToInt32(viewModel.Number1) / Convert.ToInt32(viewModel.Number2);
+
+            if (sum != Convert.ToInt32(viewModel.Answer))
+            {
+                if (_count < 2)
+                {
+
+                    Session["Count"] = _count;
+                    Session["Number1"] = viewModel.Number1;
+                    Session["Number2"] = viewModel.Number2;
+
+                    return RedirectToAction("Division");
+                }
+                else
+                {
+                    _count = 0;
+                    Session["Count"] = 0;
+                    Session["Number1"] = 0;
+                    Session["Number2"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("Division");
+                }
+
+            }
+            _total += 1;
+            _count = 0;
+            Session["Count"] = 0;
+            Session["Number1"] = 0;
+            Session["Number2"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+
+            return RedirectToAction("Division");
+        }
+
+        [HttpGet]
+        public ActionResult Lebel()
+        {
+            ViewBag.Title = "Labels";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Animals()
+        {
+            ViewBag.Title = "Animals";
+            AnimalViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new AnimalViewModel
+                {
+                    AnimalName = Session["AnimalName"].ToString(),
+                    Message = _wrongMessage 
+                };
+
+                Session["AnimalName"] = "";
+
+                return View(viewModel);
+            }
+
+            int num = GenerateNumbers(19);
+            string generatedName = GenerateName(num);
+
+            viewModel = new AnimalViewModel
+            {
+                AnimalName = generatedName
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Animals(AnimalViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+
+            if (!string.IsNullOrEmpty(viewModel.Answer))
+            {
+                if (viewModel.Answer.ToLower().Trim() != viewModel.AnimalName.ToLower().Replace(".jpg", "").Trim())
+                {
+                    if (_count < 2)
+                    {
+                      Session["AnimalName"] = viewModel.AnimalName;
+                      Session["Count"] = _count;
+
+                      return RedirectToAction("Animals");
+                    }
+
+                    _count = 0;
+                    Session["AnimalName"] = "";
+                    Session["Count"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("Animals");
+                    
+                }
+            }
+
+            _count = 0;
+            Session["AnimalName"] = "";
+            Session["Count"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+            return RedirectToAction("Animals");
+
+        }
+
+        [HttpGet]
+        public ActionResult Fruit()
+        {
+            ViewBag.Title = "Fruit & Veg";
+            FruitViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new FruitViewModel
+                {
+                    FruitName = Session["FruitName"].ToString(),
+                    Message = _wrongMessage
+                };
+
+                Session["FruitName"] = "";
+
+                return View(viewModel);
+            }
+
+            int num = GenerateNumbers(16);
+            string generatedName = GenerateFruitName(num);
+
+            viewModel = new FruitViewModel
+            {
+                FruitName = generatedName
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Fruit(FruitViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+
+            if (!string.IsNullOrEmpty(viewModel.Answer))
+            {
+                if (viewModel.Answer.ToLower().Trim() != viewModel.FruitName.ToLower().Replace(".jpg", "").Trim())
+                {
+                    if (_count < 2)
+                    {
+                        Session["FruitName"] = viewModel.FruitName;
+                        Session["Count"] = _count;
+
+                        return RedirectToAction("Fruit");
+                    }
+
+                    _count = 0;
+                    Session["FruitName"] = "";
+                    Session["Count"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("Fruit");
+
+                }
+            }
+
+            _count = 0;
+            Session["FruitName"] = "";
+            Session["Count"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+            return RedirectToAction("Fruit");
+
+        }
+
+        [HttpGet]
+        public ActionResult HouseHold()
+        {
+            ViewBag.Title = "Households";
+            HouseHoldViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new HouseHoldViewModel
+                {
+                    HouseHoldName = Session["HouseHoldName"].ToString(),
+                    Message = _wrongMessage
+                };
+
+                Session["HouseHoldName"] = "";
+
+                return View(viewModel);
+            }
+
+            int num = GenerateNumbers(4);
+            string generatedName = GenerateHouseholdName(num);
+
+            viewModel = new HouseHoldViewModel
+            {
+                HouseHoldName = generatedName
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult HouseHold(HouseHoldViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+
+            if (!string.IsNullOrEmpty(viewModel.Answer))
+            {
+                if (viewModel.Answer.ToLower().Trim() != viewModel.HouseHoldName.ToLower().Replace(".jpg", "").Trim())
+                {
+                    if (_count < 2)
+                    {
+                        Session["HouseHoldName"] = viewModel.HouseHoldName;
+                        Session["Count"] = _count;
+
+                        return RedirectToAction("HouseHold");
+                    }
+
+                    _count = 0;
+                    Session["HouseHoldName"] = "";
+                    Session["Count"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("HouseHold");
+
+                }
+            }
+
+            _count = 0;
+            Session["HouseHoldName"] = "";
+            Session["Count"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+            return RedirectToAction("HouseHold");
+        }
+
+        [HttpGet]
+        public ActionResult Color()
+        {
+            ViewBag.Title = "Colors";
+            ColorViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new ColorViewModel
+                {
+                    ColorName = Session["ColorName"].ToString(),
+                    Message = _wrongMessage
+                };
+
+                Session["ColorName"] = "";
+
+                return View(viewModel);
+            }
+
+            int num = GenerateNumbers(10);
+            string generatedName = GenerateColorName(num);
+
+            viewModel = new ColorViewModel
+            {
+                ColorName = generatedName
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Color(ColorViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+
+            if (!string.IsNullOrEmpty(viewModel.Answer))
+            {
+                if (viewModel.Answer.ToLower().Trim() != viewModel.ColorName.ToLower().Replace(".jpg", "").Trim())
+                {
+                    if (_count < 2)
+                    {
+                        Session["ColorName"] = viewModel.ColorName;
+                        Session["Count"] = _count;
+
+                        return RedirectToAction("Color");
+                    }
+
+                    _count = 0;
+                    Session["ColorName"] = "";
+                    Session["Count"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("Color");
+
+                }
+            }
+
+            _count = 0;
+            Session["ColorName"] = "";
+            Session["Count"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+            return RedirectToAction("Color");
+        }
+
+        [HttpGet]
+        public ActionResult Sport()
+        {
+            ViewBag.Title = "Sports";
+            SportViewModel viewModel;
+            _count = Convert.ToInt32(Session["Count"]);
+
+            if (_count == 1)
+            {
+                viewModel = new SportViewModel
+                {
+                    SportName = Session["SportName"].ToString(),
+                    Message = _wrongMessage
+                };
+
+                Session["SportName"] = "";
+
+                return View(viewModel);
+            }
+
+            int num = GenerateNumbers(9);
+            string generatedName = GenerateSportName(num);
+
+            viewModel = new SportViewModel
+            {
+                SportName = generatedName
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Sport(SportViewModel viewModel)
+        {
+            _countPlay = Session["CountPlay"] != null ? Convert.ToInt32(Session["CountPlay"]) + 1 : 1;
+            _count = Session["Count"] != null ? Convert.ToInt32(Session["Count"]) + 1 : 1;
+
+            if (!string.IsNullOrEmpty(viewModel.Answer))
+            {
+                if (viewModel.Answer.ToLower().Trim() != viewModel.SportName.ToLower().Replace(".jpg", "").Trim())
+                {
+                    if (_count < 2)
+                    {
+                        Session["SportName"] = viewModel.SportName;
+                        Session["Count"] = _count;
+
+                        return RedirectToAction("Sport");
+                    }
+
+                    _count = 0;
+                    Session["SportName"] = "";
+                    Session["Count"] = 0;
+
+                    if (_countPlay > 6)
+                    {
+                        Session["CountPlay"] = 0;
+                        return RedirectToAction("Index");
+                    }
+
+                    Session["CountPlay"] = _countPlay;
+                    return RedirectToAction("Sport");
+
+                }
+            }
+
+            _count = 0;
+            Session["SportName"] = "";
+            Session["Count"] = 0;
+
+            if (_countPlay > 6)
+            {
+                Session["CountPlay"] = 0;
+                return RedirectToAction("Index");
+            }
+
+            Session["CountPlay"] = _countPlay;
+            return RedirectToAction("Sport");
+        }
+
+        private string GenerateHouseholdName(int number)
+        {
+            string name = string.Empty;
+
+            if (number == 1)
+            {
+                name = "couch.jpg";
+            }
+            if (number == 2)
+            {
+                name = "fan.jpg";
+            }
+            if (number == 3)
+            {
+                name = "Fridge.jpg";
+            }
+            if (number == 4)
+            {
+                name = "TV.jpg";
+            }
+
+            return name;
+        }
+
+        private string GenerateSportName(int number)
+        {
+            string name = string.Empty;
+
+            if (number == 1)
+            {
+                name = "Athletic.jpg";
+            }
+            if (number == 2)
+            {
+                name = "Basketball.jpg";
+            }
+            if (number == 3)
+            {
+                name = "cricket.jpg";
+            }
+            if (number == 4)
+            {
+                name = "golf.jpg";
+            }
+            if (number == 5)
+            {
+                name = "hockey.jpg";
+            }
+            if (number == 6)
+            {
+                name = "rugby.jpg";
+            }
+            if (number == 7)
+            {
+                name = "Soccer.jpg";
+            }
+            if (number == 8)
+            {
+                name = "swimming.jpg";
+            }
+            if (number == 9)
+            {
+                name = "tennis.jpg";
+            }
+
+            return name;
+        }
+
+        private string GenerateColorName(int number)
+        {
+            string name = string.Empty;
+
+            if (number == 1)
+            {
+                name = "Black.jpg";
+            }
+            if (number == 2)
+            {
+                name = "blue.jpg";
+            }
+            if (number == 3)
+            {
+                name = "brown.jpg";
+            }
+            if (number == 4)
+            {
+                name = "Green.jpg";
+            }
+            if (number == 5)
+            {
+                name = "grey.jpg";
+            }
+            if (number == 6)
+            {
+                name = "lime.jpg";
+            }
+            if (number == 7)
+            {
+                name = "orange.jpg";
+            }
+            if (number == 8)
+            {
+                name = "pink.jpg";
+            }
+            if (number == 9)
+            {
+                name = "red.jpg";
+            }
+            if (number == 10)
+            {
+                name = "yellow.jpg";
+            }
+
+            return name;
+        }
+
+        private string GenerateFruitName(int number)
+        {
+            string name = string.Empty;
+
+            if (number == 1)
+            {
+                name = "apple.jpg";
+            }
+            if (number == 2)
+            {
+                name = "banana.jpg";
+            }
+            if (number == 3)
+            {
+                name = "cabbage.jpg";
+            }
+            if (number == 4)
+            {
+                name = "carrot.jpg";
+            }
+            if (number == 5)
+            {
+                name = "lemon.jpg";
+            }
+            if (number == 6)
+            {
+                name = "orange.jpg";
+            }
+            if (number == 7)
+            {
+                name = "papper.jpg";
+            }
+            if (number == 8)
+            {
+                name = "peach.jpg";
+            }
+            if (number == 9)
+            {
+                name = "pear.jpg";
+            }
+            if (number == 10)
+            {
+                name = "pinenaple.jpg";
+            }
+            if (number == 11)
+            {
+                name = "potato.jpg";
+            }
+            if (number == 12)
+            {
+                name = "pumpkin.jpg";
+            }
+            if (number == 13)
+            {
+                name = "Rabbit.jpg";
+            }
+            if (number == 14)
+            {
+                name = "spinach.jpg";
+            }
+            if (number == 15)
+            {
+                name = "tomato.jpg";
+            }
+            if (number == 16)
+            {
+                name = "watermelon.jpg";
+            }
+
+            return name;
+        }
+
+        private string GenerateName(int number)
+        {
+            string name = string.Empty;
+
+            if (number == 1)
+            {
+                name = "baboon.jpg";
+            }
+            if (number == 2)
+            {
+                name = "Bear.jpg";
+            }
+            if (number == 3)
+            {
+                name = "bird.jpg";
+            }
+            if (number == 4)
+            {
+                name = "cat.jpg";
+            }
+            if (number == 5)
+            {
+                name = "Chicken.jpg";
+            }
+            if (number == 6)
+            {
+                name = "cow.jpg";
+            }
+            if (number == 7)
+            {
+                name = "dog.jpg";
+            }
+            if (number == 8)
+            {
+                name = "fish.jpg";
+            }
+            if (number == 9)
+            {
+                name = "frog.jpg";
+            }
+            if (number == 10)
+            {
+                name = "giraffe.jpg";
+            }
+            if (number == 11)
+            {
+                name = "HORSE.jpg";
+            }
+            if (number == 12)
+            {
+                name = "kangaroo.jpg";
+            }
+            if (number == 13)
+            {
+                name = "Lion.jpg";
+            }
+            if (number == 14)
+            {
+                name = "pig.jpg";
+            }
+            if (number == 15)
+            {
+                name = "rhino.jpg";
+            }
+            if (number == 16)
+            {
+                name = "snake.jpg";
+            }
+            if (number == 17)
+            {
+                name = "spider.jpg";
+            }
+            if (number == 18)
+            {
+                name = "tiger.jpg";
+            }
+            if (number == 19)
+            {
+                name = "zebra.jpg";
+            }
+
+            return name;
+        }
+
+        private int GenerateNumbers(int number)
+        {
+            Random rand = new Random();
+            int num = rand.Next(1, number);
+
+            return num;
+        }
+
+        private SubtractionViewModel GetSubtractioViewModel()
+        {
+            int num1, num2;
+
+            num1 = Gererate(1, 20);
+            num2 = Gererate(1, 15);
+
+            if (num1 < num2)
+            {
+                int temp = num1;
+                num1 = num2;
+                num2 = temp;
+            }
+
+            SubtractionViewModel viewModel = new SubtractionViewModel
+            {
+                Number1 = num1.ToString(),
+                Number2 = num2.ToString(),
+                Sign = "-"
+            };
+
+            return viewModel;
+        }
+
+        private MultiplicationViewModel GetMultipleViewModel()
+        {
+            int num1, num2;
+
+            num1 = Gererate(1, 10);
+            num2 = Gererate(num1, 12);
+
+            MultiplicationViewModel viewModel = new MultiplicationViewModel
+            {
+                Number1 = num1.ToString(),
+                Number2 = num2.ToString(),
+                Sign = "*"
+            };
+
+            return viewModel;
+        }
+
+        private DivisionViewModel GetDivisionViewModel()
+        {
+            int num1, num2;
+
+            num1 = GenerateEven(1, 20);
+            num2 = Gererate(1, 5);
+
+            if (num1 % num2 != 0)
+            {
+                num1 = 1;
+                num2 = 1;
+                GetDivisionViewModel();
+            }
+
+            DivisionViewModel viewModel = new DivisionViewModel
+            {
+                Number1 = num1.ToString(),
+                Number2 = num2.ToString(),
+                Sign = "/"
+            };
+
+            return viewModel;
+        }
+
+        private int GenerateEven(int from, int to)
+        {
+            Random rand = new Random();
+            int n = rand.Next(from, to - 1);
+            while (n % 2 == 1)
+            {
+                n = rand.Next(from, to - 1);
+            }
+
+            return n;
+        }
+
+        private AdditionViewModel GetViewModel()
+        {
+            int num1, num2;
+
+            num1 = Gererate(1, 10);
+            num2 = Gererate(num1, 12);
+
+            AdditionViewModel viewModel = new AdditionViewModel
+            {
+                Number1 = num1.ToString(),
+                Number2 = num2.ToString(),
+                Sign = "+"
+            };
+
+            return viewModel;
+        }
+
+        private int Gererate(int from = 0, int to = 0)
+        {
+            Random rand = new Random();
+            int n;
+            if (from == 0 || to == 0)
+                n = rand.Next();
+            else
+                n = rand.Next(from, to);
+            return n;
+        }
+    }
+}
