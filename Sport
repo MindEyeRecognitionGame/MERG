@@ -1,22 +1,49 @@
-<%@ Page Title="Title" Language="C#" Inherits="System.Web.Mvc.ViewPage<dynamic>" MasterPageFile="~/Views/Shared/Site.Master" %>
-<asp:Content runat="server" ID="Title" ContentPlaceHolderID="TitleContent">
-    Sports
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MEEGv._1.Models.SportViewModel>" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    Sport
 </asp:Content>
 
-<asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
-     <div class="sport-pic-pos1">
-        <a href="<%: Url.Action("Maths") %>" class="menu-image">
-            <img src="../../Images/Sports.jpg" width="100px" height="100px" />
-        </a>
-    </div>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+  <span >
+    <img src="../../Images/SportsMain.jpg"  class="banner"/>
+    </span>
+    <span class="title">
+        <%: ViewBag.Title %>
+    </span>
+   <hr class="hr"/>
     
-    <div class="sport-pic-pos2">
-        <a href="<%: Url.Action("Maths") %>" class="menu-image">
-            <img src="../../Images/Animals.jpg" width="100px" height="100px" />
-        </a>
-    </div>
+    <% using (Html.BeginForm()) { %>
+        <%: Html.AntiForgeryToken() %>
+        <%: Html.ValidationSummary(true) %>
+        <div class="picture-frame">
+            <img src="../../Sport/<%:Model.SportName %>" width="400" height="400"/>
+        </div>
+        <div class="animal-answer">
+            <label class="label">Type the name of the sport in the picture.</label>
+            <%: Html.TextBoxFor(m => m.Answer, new { @class = "animal-answer-text"}) %>
+            <%: Html.ValidationMessageFor(m => m.Answer) %>
+            <%: Html.TextBoxFor(m => m.SportName, new {@type = "hidden"}) %>
+        </div>
+        <div class="animal-button">
+           <input class="" type="submit" value="Next"/>
+        </div>
+    <div class="back-animal">
+            <%: Html.ActionLink("End Game", "Index", null, new {@class = "link"}) %>
+        </div>
+    <% if (!string.IsNullOrEmpty(Model.Message))
+                       {%>
+                            <p class="wrong-message">
+                                 <%: Model.Message %> 
+                            </p>
+                       <%}%>
+        
+     <% } %>
+
 </asp:Content>
 
-<asp:Content runat="server" ID="ScriptsSection" ContentPlaceHolderID="ScriptsSection">
-    
+<asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
+</asp:Content>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="ScriptsSection" runat="server">
 </asp:Content>
