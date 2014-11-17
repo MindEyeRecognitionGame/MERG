@@ -8,6 +8,13 @@
 </asp:Content>
 
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
+    <span >
+        <img src="../../Images/maths.jpg" class="banner"/>
+    </span>
+    <span class="title">
+        <%: ViewBag.Title %>
+    </span>
+   <hr class="hr"/>
     <div class="math-pic-pos1">
             <a href="<%: Url.Action("Addition") %>" class="menu-image">
                 <img src="../../Images/Addition.jpg" width="100px" height="100px" />
