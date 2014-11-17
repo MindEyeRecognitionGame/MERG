@@ -1,0 +1,22 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace MEEGv._1.Models
+{
+    public class MultiplicationViewModel
+    {
+        [Display(Name = "First Number")]
+        public string Number1 { get; set; }
+
+        [Display(Name = "Second Number")]
+        public string Number2 { get; set; }
+
+        [Display(Name = "Answer")]
+        [RegularExpression(@"([1-9][0-9]*)")]
+        public string Answer { get; set; }
+
+        [Display(Name = "Sign")]
+        public string Sign { get; set; }
+
+        public string Message { get; set; }
+    }
+}
