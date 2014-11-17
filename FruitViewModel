@@ -1,0 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace MEEGv._1.Models
+{
+    public class FruitViewModel
+    {
+        public string FruitName { get; set; }
+
+        [Required]
+        public string Answer { get; set; }
+
+        public string Message { get; set; }
+    }
+}
