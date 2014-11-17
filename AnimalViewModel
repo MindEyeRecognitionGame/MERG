@@ -1,0 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace MEEGv._1.Models
+{
+    public class AnimalViewModel
+    {
+        public string AnimalName { get; set; }
+
+        [Required]
+        public string Answer { get; set; }
+
+        public string Message { get; set; }
+    }
